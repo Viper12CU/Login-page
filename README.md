@@ -22,7 +22,7 @@ Este proyecto es una página de inicio de sesión diseñada para aplicaciones we
     ```
 2. Navega al directorio del proyecto:
     ```bash
-    cd log-in-page
+    cd Login-page
     ```
 3. Abre el archivo `index.html` en tu navegador.
 
