@@ -1,0 +1,337 @@
+:root {
+    /* --- Base estructural (claro) --- */
+    --form-bg: #ffffff;
+    /* Fondo blanco puro */
+    --form-paper: #c7dff9;
+    /* Fondo de áreas secundarias */
+    --form-border: #e0e0e0;
+    /* Bordes sutiles */
+
+    /* --- Enfoque deportivo-tech (acentos) --- */
+    --focus-primary: #00b4d8;
+    /* Azul científico (para inputs activos) */
+    --focus-energy: #019dbc;
+    /* Verde neón suavizado (botones) */
+    --focus-alert: #ff005c;
+    /* Rojo para errores (sutil) */
+
+    /* --- Tipografía legible --- */
+    --text-dark: #212529;
+    /* Texto principal */
+    --text-muted: #6c757d;
+    /* Placeholders/labels */
+    --text-on-color: #ffffff;
+    /* Texto sobre botones */
+
+    /* --- Micro-interacciones --- */
+    --shadow: 0 0 10px #d5d3d3;
+    /* Outline sutil */
+
+    /* ===== FAMILIAS TIPOGRÁFICAS ===== */
+    --font-display: 'Rajdhani', 'Barlow Condensed', sans-serif;
+    /* Titulares - Estilo tech */
+    --font-heading: 'Orbitron', sans-serif;
+    /* Para eslóganes neón */
+    --font-body: 'Inter', 'Helvetica Neue', sans-serif;
+    /* Legibilidad en textos */
+    --font-code: 'SF Mono', 'Roboto Mono', monospace;
+
+  }
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: var(--font-body);
+    background-color: var(--form-bg);
+    background-image: url("/lib/fondo 2.jpg");
+    background-size: cover;
+}
+
+.container {
+    text-align: center;
+}
+
+.outer-div {
+    position: relative;
+    width: 60rem;
+    height: 40rem;
+    background-color: var(--bg-card);
+    margin-bottom: 20px;
+    overflow: hidden;
+    filter: drop-shadow(var(--shadow));
+    border-radius: 20px ;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+.inner-div {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    left: 0;
+    background-color: #0b0b0bb3;
+    transition: all 0.5s ease-in-out;
+    border-radius: 0 30px 30px 0 ;
+    z-index: 2;
+    border:(1px solid var(--form-border));
+    filter: blur(0);
+
+
+}
+
+.inner-div.right {
+    left: 50%;
+    border-radius: 25px 0 0 25px;
+    background-image: "/lib/Login nuevo.jpg";
+}
+
+.inner-div.expanding {
+    width: 100%;
+    left: 0 !important;
+    border-radius: 30px !important;
+    filter: blur(20px);
+    
+}
+
+
+
+
+/* Ocultar botones según la posición */
+    .inner-div:not(.right) .left-btn,
+    .inner-div.right .right-btn {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .middle-div {
+        background-color: var(--form-paper);
+        height: 100%;
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    /* * Formulario general */
+    .form-div {
+        height: 90%;
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+
+    }
+
+    .form-group {
+        margin-bottom: 1.2rem;
+        width: 20rem;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    label {
+        display: block;
+        text-align: left;
+        margin-bottom: 0.5rem;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        font-weight: 500;
+        width: 100%;
+        font-family:var(--font-code) ;
+    }
+
+    input {
+        width: 20rem;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        font-size: 1rem;
+        border-color: transparent;
+        transition: border-color 0.25s ease-in-out;
+    }
+
+    input:focus {
+        outline: none;
+        border-color: var(--focus-primary);
+    }
+
+    input:hover {
+        outline: none;
+        border-color: var(--focus-primary);
+    }
+
+    .login-link {
+        margin-top: 1.3rem;
+        margin-bottom: 1.5rem;
+        font-size: 0.95rem;
+        cursor: pointer;
+    }
+
+    .login-link a {
+        color: #3498db;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .login-link a:hover {
+        text-decoration: underline;
+    }
+
+    .password-toggle {
+        position: absolute;
+        right: 20px;
+        top: 1.5rem;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #666;
+        padding: 0;
+        font-size: 16px;
+    }
+
+    .password-toggle:hover {
+        color: #333;
+    }
+
+    /* * Sign up formulario */
+
+    .sign-up-form {
+        position: relative;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        color: var(--text-dark);
+        font-size: 1.5rem;
+        font-family: var(--font-heading);
+    }
+
+
+
+
+    .submit-btn {
+        width: 100%;
+        padding: 12px;
+        background-color: var(--focus-primary);
+        transition: background-color 0.25s ease-in-out;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        font-size: 1.1rem;
+        font-weight: 500;
+        font-family: var(--font-code);
+        cursor: pointer;
+        margin-top: 0.5rem;
+        
+    }
+
+    .submit-btn:hover {
+        background-color: var(--focus-energy);
+    }
+
+
+
+
+
+
+    /* * login formulario */
+
+    .login-form {
+        position: relative;
+    }
+
+    .logo-container h1 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        color: #2c3e50;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        color: var(--text-dark);
+    }
+
+    .subtitle {
+        color: var(--text-muted);
+        margin-bottom: 2rem;
+        font-size: 0.95rem;
+    }
+
+
+    .divider {
+        height: 1px;
+        background-color: var(--text-dark);
+        margin: 2rem 0;
+    }
+
+    .register-button {
+        width: 100%;
+        padding: 12px;
+        background-color: var(--focus-primary);
+        transition: background-color 0.25s ease-in-out;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        font-size: 1.1rem;
+        font-weight: 500;
+        font-family: var(--font-code);
+        cursor: pointer;
+        margin-top: 0.5rem;
+    }
+
+    .register-button:hover {
+        background-color: var(--focus-energy);
+    }
+
+
+    .poster-img {
+        position: relative;
+        display: block;
+        width: 100%;
+        border-radius: 0 25px 25px 0;
+        height: 100%;
+    }
+
+    .poster-img.right {
+        border-radius: 25px 0 0 25px;
+
+    }
+
+    .error-message {
+        color: var(--focus-alert);
+        font-size: 0.875rem;
+        font-weight: bold;
+        margin-top: 0.5rem;
+        display: none;
+        animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-5px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .error-border {
+        border-color: var(--focus-alert) !important;
+    }
+
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        20%, 60% { transform: translateX(-5px); }
+        40%, 80% { transform: translateX(5px); }
+    }
