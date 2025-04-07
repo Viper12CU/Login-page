@@ -47,7 +47,7 @@ body {
     height: 100vh;
     font-family: var(--font-body);
     background-color: var(--form-bg);
-    background-image: url("/lib/fondo 2.jpg");
+    background-image: url("/lib/fondo.jpg");
     background-size: cover;
 }
 

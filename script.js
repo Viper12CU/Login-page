@@ -24,12 +24,12 @@ document.addEventListener('DOMContentLoaded', function () {
             if (isLeft) {
                 innerDiv.classList.add('right');
                 imgPoster.classList.add("right");
-                imgPoster.src = "/lib/Sign in nuevo.jpg"
+                imgPoster.src = "/lib/Sign-in.jpg"
 
             } else {
                 innerDiv.classList.remove('right');
                 imgPoster.classList.remove("right");
-                imgPoster.src = "/lib/Login nuevo.jpg";
+                imgPoster.src = "/lib/Login.jpg";
                 // Log in
 
             }
