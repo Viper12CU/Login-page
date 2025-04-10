@@ -312,13 +312,29 @@ body {
 
     }
 
+    .level-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
+        width: fit-content;
+        margin: 0 auto;
+        
+    }
+
+    .level-info p {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        margin-left: 0.7rem;
+        font-weight: bold;
+    }
+
+
     .error-message {
         background-color: var(--form-bg);
         height: 0.8rem;
         width: 6rem;
         border-radius: 0.5rem;
-        margin: 0 auto;
-        margin-top: 0.5rem;
         display: none;
         animation: fadeIn 0.3s ease;
     }

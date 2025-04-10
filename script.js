@@ -144,10 +144,16 @@ function validatePassword(onInput = false) {
     const errorElement = document.getElementById('passwordError');
     const inputElement = document.getElementById('passwordRegister');
     const passwordProgress = document.getElementById("progress");
+    const passwordStrengthText = document.getElementById("passwordStrength");
+    
 
     const secure = evaluarSeguridadContraseña(password);
 
-    if (password.length == 0) errorElement.style.display = 'none';
+    if (password.length == 0) {
+        document.getElementById("levelInfo").style.display = "none";
+    } else {
+        document.getElementById("levelInfo").style.display = "flex";
+    }
 
     // Mostrar errores
     if (secure >= 0 && (password.length > 0 || !onInput)) {
@@ -157,15 +163,26 @@ function validatePassword(onInput = false) {
         if (secure <= 2) {
             passwordProgress.style.width = "25%";
             passwordProgress.style.backgroundColor = "#ff0000";
+            passwordStrengthText.style.color = "#ff0000";
+            passwordStrengthText.textContent = "Weak";
         } else if (secure <= 4) {
             passwordProgress.style.width = "50%";
             passwordProgress.style.backgroundColor = "#ff6600";
+            passwordStrengthText.style.color = "#ff6600";
+            passwordStrengthText.textContent = "Moderate";
+
         } else if (secure <= 5) {
             passwordProgress.style.width = "75%";
             passwordProgress.style.backgroundColor = "#ffcc00";
+            passwordStrengthText.style.color = "#ffcc00";
+            passwordStrengthText.textContent = "Strong";
+
         } else {
             passwordProgress.style.width = "100%";
             passwordProgress.style.backgroundColor = "#99cc00";
+            passwordStrengthText.style.color = "#99cc00";
+            passwordStrengthText.textContent = "Very strong";
+
 
         }
 
