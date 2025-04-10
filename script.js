@@ -1,3 +1,31 @@
+// *-----------------------------------------Validate passsword--------------
+
+function evaluarSeguridadContraseña(contraseña) {
+    let puntuacion = 0;
+
+    // Longitud mínima (8 caracteres)
+    if (contraseña.length >= 8) puntuacion += 1;
+    if (contraseña.length >= 12) puntuacion += 1; // Bonus por mayor longitud
+
+    // Contiene mayúsculas
+    if (/[A-Z]/.test(contraseña)) puntuacion += 1;
+
+    // Contiene minúsculas
+    if (/[a-z]/.test(contraseña)) puntuacion += 1;
+
+    // Contiene números
+    if (/[0-9]/.test(contraseña)) puntuacion += 1;
+
+    // Contiene caracteres especiales
+    if (/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(contraseña)) puntuacion += 1;
+
+    // Bonus por no tener espacios
+    if (!/\s/.test(contraseña)) puntuacion += 1;
+
+    return puntuacion; // Retorna un valor entre 0 y 7
+}
+
+
 
 //* ---------------------- Login and Sign Up Toggle Functionality ---------------------- //
 //* This script handles the toggle functionality between login and sign-up forms
@@ -66,15 +94,15 @@ const togglePasswordRegister = document.getElementById('togglePasswordRegister')
 const passwordRegister = document.getElementById('passwordRegister');
 const imageRegister = document.getElementById('buttonImageRegister');
 
-togglePasswordRegister.addEventListener('click', function() {
+togglePasswordRegister.addEventListener('click', function () {
     const type = passwordRegister.getAttribute('type') === 'password' ? 'text' : 'password';
     passwordRegister.setAttribute('type', type);
-    
+
     // Cambiar solo la imagen (eliminado el textContent)
-    imageRegister.src = type === 'password' 
-        ? "https://img.icons8.com/material-outlined/20/visible--v1.png" 
+    imageRegister.src = type === 'password'
+        ? "https://img.icons8.com/material-outlined/20/visible--v1.png"
         : "https://img.icons8.com/material-outlined/20/invisible.png";
-    
+
     // Actualizar el texto alternativo para accesibilidad
     imageRegister.alt = type === 'password' ? "Mostrar contraseña" : "Ocultar contraseña";
 });
@@ -84,15 +112,15 @@ const togglePasswordLogin = document.getElementById('togglePasswordLogin');
 const passwordLogin = document.getElementById('passwordLogin');
 const imageLogin = document.getElementById('buttonImageLogin');
 
-togglePasswordLogin.addEventListener('click', function() {
+togglePasswordLogin.addEventListener('click', function () {
     const type = passwordLogin.getAttribute('type') === 'password' ? 'text' : 'password';
     passwordLogin.setAttribute('type', type);
-    
+
     // Cambiar solo la imagen (eliminado el textContent)
-    imageLogin.src = type === 'password' 
-        ? "https://img.icons8.com/material-outlined/20/visible--v1.png" 
+    imageLogin.src = type === 'password'
+        ? "https://img.icons8.com/material-outlined/20/visible--v1.png"
         : "https://img.icons8.com/material-outlined/20/invisible.png";
-    
+
     // Actualizar el texto alternativo para accesibilidad
     imageLogin.alt = type === 'password' ? "Mostrar contraseña" : "Ocultar contraseña";
 });
@@ -102,12 +130,12 @@ togglePasswordLogin.addEventListener('click', function() {
 //* ----------------------------- Validate password ----------------------------- //
 
 
-document.getElementById('singUpForm').addEventListener('submit', function(e) {
+document.getElementById('singUpForm').addEventListener('submit', function (e) {
     e.preventDefault();
     validatePassword();
 });
 
-document.getElementById('passwordRegister').addEventListener('input', function() {
+document.getElementById('passwordRegister').addEventListener('input', function () {
     validatePassword(true);
 });
 
@@ -115,30 +143,36 @@ function validatePassword(onInput = false) {
     const password = document.getElementById('passwordRegister').value;
     const errorElement = document.getElementById('passwordError');
     const inputElement = document.getElementById('passwordRegister');
-    
-    // Validaciones individuales
-    const hasMinLength = password.length >= 8;
-    const hasUpperCase = /[A-Z]/.test(password);
-    const hasSpecialChar = /[!@#$%^&*]/.test(password);
-    
-    // Mensajes de error específicos
-    let errorMessages = [];
-    
-    if (!hasMinLength) errorMessages.push("mínimo 8 caracteres");
-    if (!hasUpperCase) errorMessages.push("1 letra mayúscula");
-    if (hasSpecialChar) errorMessages.push("sin caracteres especiales");
-    
+    const passwordProgress = document.getElementById("progress");
+
+    const secure = evaluarSeguridadContraseña(password);
+
+    if (password.length == 0) errorElement.style.display = 'none';
+
     // Mostrar errores
-    if (errorMessages.length > 0 && (password.length > 0 || !onInput)) {
-        const errorText = "Falta: " + errorMessages.join(", ");
-        errorElement.textContent = errorText;
+    if (secure >= 0 && (password.length > 0 || !onInput)) {
         errorElement.style.display = 'block';
         inputElement.classList.add('error-border');
+
+        if (secure <= 2) {
+            passwordProgress.style.width = "25%";
+            passwordProgress.style.backgroundColor = "#ff0000";
+        } else if (secure <= 4) {
+            passwordProgress.style.width = "50%";
+            passwordProgress.style.backgroundColor = "#ff6600";
+        } else if (secure <= 5) {
+            passwordProgress.style.width = "75%";
+            passwordProgress.style.backgroundColor = "#ffcc00";
+        } else {
+            passwordProgress.style.width = "100%";
+            passwordProgress.style.backgroundColor = "#99cc00";
+
+        }
+
         return false;
     } else {
-        errorElement.style.display = 'none';
         inputElement.classList.remove('error-border');
-        
+
         if (!onInput && password.length > 0) {
             alert('¡Contraseña válida!');
             // Aquí iría tu lógica de envío del formulario
@@ -154,28 +188,28 @@ function validarFormulario(form) {
     // Obtener todos los inputs del formulario
     const inputs = document.querySelectorAll(`#loginForm input`);
     let hayVacios = false;
-  
+
     // Verificar cada input
     inputs.forEach(input => {
-      if (input.value.trim() === '') {
-        hayVacios = true;
-        input.style.border = '1px solid red'; // Resaltar el campo vacío
-      } else {
-        input.style.border = ''; // Quitar el resaltado si está completo
-      }
+        if (input.value.trim() === '') {
+            hayVacios = true;
+            input.style.border = '1px solid red'; // Resaltar el campo vacío
+        } else {
+            input.style.border = ''; // Quitar el resaltado si está completo
+        }
     });
-  
+
     // Mostrar mensaje de error si hay campos vacíos
     if (hayVacios) {
         alert("⚠️ ¡Error! Hay campos vacíos. Por favor, complétalos."); // Alerta
         return false; // Validación fallida
-      } else {
+    } else {
         alert("✅ ¡Formulario válido! Enviando datos..."); // Alerta de éxito (opcional)
         // document.getElementById('miFormulario').submit(); // Enviar formulario
         return true; // Validación exitosa
-      }
+    }
 
-  }
+}
 
 
 document.getElementById("registerBtn").addEventListener("click", validarFormulario)
